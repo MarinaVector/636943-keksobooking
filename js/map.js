@@ -164,10 +164,6 @@ var renderCard = function (renderArr) {
   return card;
 };
 
-
-
-
-
 // вызывает создателя объектов
 var points = createObjects(8);
 
