@@ -29,8 +29,9 @@ var PHOTOS_ARR = [
 ];
 
 // удаление "поставь меня" + окно левое, иногда убирать:?
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+// пока снова скроем
+//var map = document.querySelector('.map');
+//map.classList.remove('map--faded');
 
 // генерация случайного числа
 var generateRandIndex = function (min, max) {
@@ -163,7 +164,6 @@ var renderCard = function (renderArr) {
 
   return card;
 };
-
 // вызывает создателя объектов
 var points = createObjects(8);
 
@@ -189,3 +189,19 @@ pins.appendChild(fragmentPin);
 var fragmentCard = document.createDocumentFragment();
 fragmentCard.appendChild(renderCard(points[0]));
 map.insertBefore(fragmentCard, mapFiltersContainer);
+
+// ветка 4
+var buttonClick = document.querySelector('.map__pin--main');
+
+var buttonMouseupHandler = function () {
+  alert();
+};
+button.addEventListener('mouseup', buttonMouseupHandler);
+
+var document.getElementById('address');
+
+var setAddress = function (xCoord, yCoord) {
+  var addressString = 'x: ' + xCoord + ', ' + 'y: ' + yCoord;
+
+  address.setAttribute('value', addressString);
+};
