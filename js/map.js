@@ -190,9 +190,8 @@ var fragmentCard = document.createDocumentFragment();
 fragmentCard.appendChild(renderCard(points[0]));
 map.insertBefore(fragmentCard, mapFiltersContainer);
 
-// ветка 4
+// ветка 4 pflfybt&
 var buttonClick = document.querySelector('.map__pin--main');
-
 var buttonMouseupHandler = function () {
   alert();
 };
