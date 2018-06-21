@@ -30,7 +30,7 @@ var PHOTOS_ARR = [
 
 // удаление "поставь меня" + окно левое, иногда убирать:?
 // пока снова скроем
-//var map = document.querySelector('.map');
+var map = document.querySelector('.map');
 //map.classList.remove('map--faded');
 
 // генерация случайного числа
@@ -106,15 +106,15 @@ var createObjects = function (quantity) {
 };
 
 // создаёт pin
-var renderPins = function () {
+var renderPins = function (point) {
   var pin = templatePin.cloneNode(true);
   var pinWidth = templatePin.offsetWidth;
   var pinHeight = templatePin.offsetHeight;
 
-  pin.style.left = points[i].location.x - pinWidth / 2 + 'px';
-  pin.style.top = points[i].location.y - pinHeight + 'px';
-  pin.querySelector('img').src = points[i].author.avatar;
-  pin.querySelector('img').alt = points[i].offer.title;
+  pin.style.left = point.location.x - pinWidth / 2 + 'px';
+  pin.style.top = point.location.y - pinHeight + 'px';
+  pin.querySelector('img').src = point.author.avatar;
+  pin.querySelector('img').alt = point.offer.title;
 
   return pin;
 };
@@ -178,29 +178,65 @@ var templatePin = template.content.querySelector('.map__pin');
 var templateCard = template.content.querySelector('.map__card');
 var mapFiltersContainer = document.querySelector('.map__filters-container');
 
-// рисует pin
-var fragmentPin = document.createDocumentFragment();
-for (var i = 0; i < points.length; i++) {
-  fragmentPin.appendChild(renderPins(points[i]));
-}
-pins.appendChild(fragmentPin);
+var renderPage = function (points) {
+  // рисует pin
+  var fragmentPin = document.createDocumentFragment();
+  for (var i = 0; i < points.length; i++) {
+    fragmentPin.appendChild(renderPins(points[i]));
+  }
+  pins.appendChild(fragmentPin);
 
-// рисует карточку
-var fragmentCard = document.createDocumentFragment();
-fragmentCard.appendChild(renderCard(points[0]));
-map.insertBefore(fragmentCard, mapFiltersContainer);
-
-// ветка 4 pflfybt&
+  // рисует карточку
+  var fragmentCard = document.createDocumentFragment();
+  fragmentCard.appendChild(renderCard(points[0]));
+  map.insertBefore(fragmentCard, mapFiltersContainer);
+};
+// ветка 4 новое
 var buttonClick = document.querySelector('.map__pin--main');
 var buttonMouseupHandler = function () {
   alert();
 };
+var button = document.querySelector('button');
 button.addEventListener('mouseup', buttonMouseupHandler);
 
-var document.getElementById('address');
+var address = document.getElementById('address');
 
 var setAddress = function (xCoord, yCoord) {
   var addressString = 'x: ' + xCoord + ', ' + 'y: ' + yCoord;
 
-  address.setAttribute('value', addressString);
+  address.setAttribute('value', point);
+};
+
+var mainPin = document.querySelector('.map__pin--main');
+var mainPinMouseupHandler = function (evt) {
+  alert();
+  map.classList.remove('map--faded'); {
+    renderPage(points);
+    mainPin.addEventListener('click', mainPinMouseupHandler);
+    return mainPin;
+  }
+};
+var mapPointClickHandler = function (evt) {
+  activePins();
+  pinClickHandler(evt, rangeObject);
+};
+var getPinsFragment = function (point) {
+  window.mapPins = document.querySelector('.map__pins');
+  var fragment = document.createDocumentFragment();
+  // Записываем все метки во fragment
+};
+
+var activePins = function () {
+  var pinActive = document.querySelector('.map__pin--active');
+  if (pinActive) {
+    pinActive.classList.remove('map__pin--active');
+  }
+};
+
+//**
+
+var pinClickHandler = function (evt, point) {
+  var dataId = evt.currentTarget.getAttribute('value');
+  window.card.renderAdSection(point, dataId);
+  evt.currentTarget.classList.add('map__pin--active');
 };
