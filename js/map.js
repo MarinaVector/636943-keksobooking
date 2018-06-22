@@ -18,14 +18,14 @@ var map = document.querySelector('.map');
 // map.classList.remove('map--faded');
 // генерация случайного числа
 var generateRandIndex = function(min, max) {
-  var rand = Math.random() * (max - min + 1);
+  var rand = Math.random () * (max - min + 1);
   rand = Math.round(rand);
   return rand;
 };
 // перемешивание массива
 var arrayShuffle = function(array) {
   for (var i = array.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
+    var j = Math.floor (Math.random() * (i + 1));
     var temp = array[j];
     array[j] = array[i];
     array[i] = temp;
@@ -80,7 +80,7 @@ var createObjects = function(quantity) {
 };
 // карточка отработает раньше
 var adCard = null;
-var renderPage = function(points) {
+var renderPage = function (points) {
   // рисует pin
   var fragmentPin = document.createDocumentFragment();
   for (var i = 0; i < points.length; i++) {
@@ -94,7 +94,7 @@ var renderPage = function(points) {
   adCard = map.querySelector('article');
 };
 // создаёт pin
-var renderPins = function(point) {
+var renderPins = function (point) {
   var pin = templatePin.cloneNode(true);
   var pinWidth = templatePin.offsetWidth;
   var pinHeight = templatePin.offsetHeight;
@@ -102,13 +102,13 @@ var renderPins = function(point) {
   pin.style.top = point.location.y - pinHeight + 'px';
   pin.querySelector('img').src = point.author.avatar;
   pin.querySelector('img').alt = point.offer.title;
-  pin.addEventListener('click', function() {
+  pin.addEventListener('click', function () {
     pinClickHandler(point);
   });
   return pin;
 };
 // создаёт список фич
-var renderFeatures = function(arrFeatures) {
+var renderFeatures = function (arrFeatures) {
   var fragmentFeatures = document.createDocumentFragment();
   var newFeatureElement;
   for (var i = 0; i < arrFeatures.length; i++) {
@@ -119,7 +119,7 @@ var renderFeatures = function(arrFeatures) {
   return fragmentFeatures;
 };
 // список фото
-var renderPhotos = function(arrPhotos) {
+var renderPhotos = function (arrPhotos) {
   var photosContainer = document.createDocumentFragment();
   var templatePhoto = template.content.querySelector('.popup__photo');
   for (var i = 0; i < arrPhotos.length; i++) {
@@ -130,7 +130,7 @@ var renderPhotos = function(arrPhotos) {
   return photosContainer;
 };
 // создаёт карточку с данными
-var renderCard = function(renderArr) {
+var renderCard = function (renderArr) {
   var card = templateCard.cloneNode(true);
   card.querySelector('.popup__title').textContent = renderArr.offer.title;
   card.querySelector('.popup__text--address').textContent = renderArr.offer.address;
@@ -160,13 +160,13 @@ var mapFiltersContainer = document.querySelector('.map__filters-container');
 var form = document.querySelector('.ad-form');
 var mainPin = document.querySelector('.map__pin--main');
 var formFieldset = form.querySelectorAll('fieldset');
-var removeFormDisabled = function() { // отменяет неактивное состояние формы
+var removeFormDisabled = function () { // отменяет неактивное состояние формы
   for (var i = 0; i < formFieldset.length; i++) {
     formFieldset[i].disabled = '';
   }
   form.classList.remove('ad-form--disabled');
 };
-var mainPinMouseupHandler = function() {
+var mainPinMouseupHandler = function () {
   map.classList.remove('map--faded'); // убираем неактивный фон
   renderPage(points);
   // отрисовываем пины
@@ -174,7 +174,7 @@ var mainPinMouseupHandler = function() {
 };
 mainPin.addEventListener('mouseup', mainPinMouseupHandler);
 // окна
-var pinClickHandler = function(point) {
+var pinClickHandler = function (point) {
   adCard.querySelector('.popup__title').textContent = point.offer.title;
   adCard.querySelector('.popup__text--address').textContent = point.offer.address; // добавили адрес из массива
   adCard.querySelector('.popup__text--price').textContent = point.offer.price + '\u20bd/ночь';
@@ -194,7 +194,7 @@ var y = mainPin.style.top;
 // координаты целыми числами с помощью встроенной в js функции parseInt
 x = parseInt(mainPin.style.left, 10); // 10 - основание системы счисления
 y = parseInt(mainPin.style.top, 10);
-// координаты кончика пина надо к x прибавить половину ширины пина, а к y добавить его высоту
+// координаты кончика пина - к x прибавить половину ширины пина, а к y добавить его высоту
 var PIN_WIDTH = 62;
 var PIN_HEIGHT = 84;
 // координаты кончика пина
@@ -203,7 +203,7 @@ y = parseInt(mainPin.style.top, 10) + PIN_HEIGHT;
 // находим поле address
 var address = form.querySelector('#address');
 // пишем функцию
-var setAddress = function(xCoord, yCoord) {
+var setAddress = function (xCoord, yCoord) {
   var addresString = 'x: ' + xCoord + ', ' + 'y: ' + yCoord;
   address.value = addresString;
 };
