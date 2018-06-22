@@ -92,7 +92,7 @@
     <section class="notice">
       <h2 class="notice__title">Ваше объявление</h2>
 
-      <form class="ad-form ad-form--disabled" method="post" enctype="multipart/form-data" autocomplete="off">
+      <form class="ad-form ad-form--" method="post" enctype="multipart/form-data" autocomplete="off">
         <fieldset disabled class="ad-form-header">
           <legend class="ad-form-header__title">Ваша фотография (для карты)</legend>
           <div class="ad-form-header__upload">
@@ -169,7 +169,7 @@
         <fieldset disabled class="ad-form__element ad-form__element--wide features">
           <legend>Удобства: Wi-Fi, кухня, парковка, стиралка, лифт, кондиционер</legend>
 
-          <input type="checkbox" name="features" value="wifi" id="feature-wifi" class="feature__checkbox visually-hidden">
+          <input type="checkbox" name="features" value="wifi" id="feature-wifi" class="feature__checkbox visually-hidden" disabled>
           <label class="feature feature--wifi" for="feature-wifi">Wi-Fi</label>
 
           <input type="checkbox" name="features" value="dishwasher" id="feature-dishwasher" class="feature__checkbox visually-hidden">
@@ -188,9 +188,9 @@
           <label class="feature feature--conditioner" for="feature-conditioner">Кондиционер</label>
         </fieldset>
 
-        <fieldset disabled class="ad-form__element ad-form__element--wide">
+        <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="description">Описание (не обязательно)</label>
-          <textarea id="description" name="description" placeholder="Здесь расскажите о том, какое ваше жилье замечательное и вообще"></textarea>
+          <textarea disabled id="description" name="description" placeholder="Здесь расскажите о том, какое ваше жилье замечательное и вообще"> </textarea>
         </fieldset>
 
         <fieldset disabled class="ad-form__element ad-form__element--wide">
@@ -204,8 +204,8 @@
           </div>
         </fieldset>
 
-        <fieldset disabled class="ad-form__element ad-form__element--submit">
-          <button class="ad-form__submit" type="submit">Опубликовать</button> или <button class="ad-form__reset" type="reset">очистить</button>
+        <fieldset class="ad-form__element ad-form__element--submit">
+          <button disabled class="ad-form__submit" type="submit">Опубликовать</button> или <button class="ad-form__reset" type="reset">очистить</button>
         </fieldset>
       </form>
     </section>
