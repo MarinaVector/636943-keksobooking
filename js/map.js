@@ -81,7 +81,7 @@ var createObjects = function (quantity) {
   }
   return objects;
 };
-// карточка отработает раньше
+// карточка отработка раньше
 var adCard = null;
 var closeButton = null;
 var renderPage = function (points) {
