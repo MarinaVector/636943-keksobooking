@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 // тип объекта
 var ESC_KEY = 27;
 var ENTER_KEY = 13;
