@@ -1,5 +1,5 @@
 ﻿'use strict';
-// тип объекта
+// тип объектов
 var ESC_KEY = 27;
 var HOUSE_TYPES = {
   bungalo: 'Бунгало',
