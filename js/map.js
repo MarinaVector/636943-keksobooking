@@ -1,7 +1,6 @@
 ﻿'use strict';
 // тип объекта
 var ESC_KEY = 27;
-var ENTER_KEY = 13;
 var HOUSE_TYPES = {
   bungalo: 'Бунгало',
   house: 'Дом',
@@ -129,13 +128,13 @@ var closeEscCardHandler = function (evt) {
   if (evt.keyCode === ESC_KEY) {
     closeClickHandler();
   }
-}
+};
 
 var closeClickHandler = function () {
   adCard.classList.add('hidden'); // делаем карточку невидимой
   activePin.classList.remove('map__pin--active'); // убираем активный пин
   document.removeEventListener('keydown', closeEscCardHandler);
-}
+};
 
 // создаёт список фич
 var renderFeatures = function (arrFeatures) {
@@ -191,7 +190,7 @@ var fillCard = function (ad) {
   adCard.querySelector('.popup__avatar').src = ad.author.avatar;
   adCard.classList.remove('hidden');
   return adCard;
-}
+};
 // вызывает создателя объектов
 var points = createObjects(8);
 // находит шаблон
