@@ -1,5 +1,7 @@
 'use strict';
 // тип объекта
+var ESC_KEY = 27;
+var ENTER_KEY = 13;
 var HOUSE_TYPES = {
   bungalo: 'Бунгало',
   house: 'Дом',
@@ -11,21 +13,22 @@ var TITLE_NAMES = ['Большая уютная квартира', 'Малень
 var OBJECT_TYPE = ['palace', 'flat', 'house', 'bungalo'];
 var CHECKIN_TIMES = ['12:00', '13:00', '14:00'];
 var FEATURES_SERVICES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var PHOTOS_ARR = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var PHOTOS_ARR = ['https://o0.github.io/assets/images/tokyo/hotel1.jpg', 'https://o0.github.io/assets/images/tokyo/hotel2.jpg', 'https://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 // удаление "поставь меня" + окно левое, иногда убирать:?
 // пока снова скроем
 var map = document.querySelector('.map');
+var activePin = null;
 // map.classList.remove('map--faded');
 // генерация случайного числа
-var generateRandIndex = function(min, max) {
-  var rand = Math.random () * (max - min + 1);
+var generateRandIndex = function (min, max) {
+  var rand = Math.random() * (max - min + 1);
   rand = Math.round(rand);
   return rand;
 };
 // перемешивание массива
-var arrayShuffle = function(array) {
+var arrayShuffle = function (array) {
   for (var i = array.length - 1; i > 0; i--) {
-    var j = Math.floor (Math.random() * (i + 1));
+    var j = Math.floor(Math.random() * (i + 1));
     var temp = array[j];
     array[j] = array[i];
     array[i] = temp;
@@ -33,7 +36,7 @@ var arrayShuffle = function(array) {
   return array;
 };
 // создаёт объекты
-var createObjects = function(quantity) {
+var createObjects = function (quantity) {
   var objects = [];
   var obj = {};
   // с массив для цифр аватара
@@ -80,6 +83,7 @@ var createObjects = function(quantity) {
 };
 // карточка отработает раньше
 var adCard = null;
+var closeButton = null;
 var renderPage = function (points) {
   // рисует pin
   var fragmentPin = document.createDocumentFragment();
@@ -92,21 +96,47 @@ var renderPage = function (points) {
   fragmentCard.appendChild(renderCard(points[0]));
   map.insertBefore(fragmentCard, mapFiltersContainer);
   adCard = map.querySelector('article');
+  adCard.classList.add('hidden');
+  adCard.addEventListener('click', renderCard);
+  closeButton = adCard.querySelector('.popup__close');
+  closeButton.addEventListener('click', closeClickHandler);
+
 };
+
 // создаёт pin
 var renderPins = function (point) {
   var pin = templatePin.cloneNode(true);
   var pinWidth = templatePin.offsetWidth;
   var pinHeight = templatePin.offsetHeight;
   pin.style.left = point.location.x - pinWidth / 2 + 'px';
-  pin.style.top = point.location.y - pinHeight + 'px';
+  pin.style.top = point.location.y - pinHeight +
+    'px';
   pin.querySelector('img').src = point.author.avatar;
   pin.querySelector('img').alt = point.offer.title;
   pin.addEventListener('click', function () {
-    pinClickHandler(point);
+    if (activePin) {
+      activePin.classList.remove('map__pin--active');
+    }
+    pin.classList.add('map__pin--active');
+    activePin = pin;
+    fillCard(point);
+    document.addEventListener('keydown', closeEscCardHandler);
   });
   return pin;
 };
+
+var closeEscCardHandler = function (evt) {
+  if (evt.keyCode === ESC_KEY) {
+    closeClickHandler();
+  }
+}
+
+var closeClickHandler = function () {
+  adCard.classList.add('hidden'); // делаем карточку невидимой
+  activePin.classList.remove('map__pin--active'); // убираем активный пин
+  document.removeEventListener('keydown', closeEscCardHandler);
+}
+
 // создаёт список фич
 var renderFeatures = function (arrFeatures) {
   var fragmentFeatures = document.createDocumentFragment();
@@ -138,20 +168,37 @@ var renderCard = function (renderArr) {
   card.querySelector('.popup__type').textContent = HOUSE_TYPES[renderArr.offer.type];
   card.querySelector('.popup__text--capacity').textContent = renderArr.offer.rooms + ' комнаты для ' + renderArr.offer.guests + ' гостей';
   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + renderArr.offer.checkin + ', выезд до ' + renderArr.offer.checkout;
-  card.querySelector('.popup__features').innerHTML = '';
+  card.querySelector('.popup__features').textContent = '';
   card.querySelector('.popup__features').appendChild(renderFeatures(renderArr.offer.features));
   card.querySelector('.popup__description').textContent = renderArr.offer.description;
-  card.querySelector('.popup__photos').innerHTML = '';
+  card.querySelector('.popup__photos').textContent = '';
   card.querySelector('.popup__photos').appendChild(renderPhotos(renderArr.offer.photos));
   card.querySelector('.popup__avatar').src = renderArr.author.avatar;
   return card;
 };
+var fillCard = function (ad) {
+  adCard.querySelector('.popup__title').textContent = ad.offer.title;
+  adCard.querySelector('.popup__text--address').textContent = ad.offer.address;
+  adCard.querySelector('.popup__text--price').textContent = ad.offer.price + '₽/ночь';
+  adCard.querySelector('.popup__type').textContent = HOUSE_TYPES[ad.offer.type];
+  adCard.querySelector('.popup__text--capacity').textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
+  adCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
+  adCard.querySelector('.popup__features').textContent = '';
+  adCard.querySelector('.popup__features').appendChild(renderFeatures(ad.offer.features));
+  adCard.querySelector('.popup__description').textContent = ad.offer.description;
+  adCard.querySelector('.popup__photos').textContent = '';
+  adCard.querySelector('.popup__photos').appendChild(renderPhotos(ad.offer.photos));
+  adCard.querySelector('.popup__avatar').src = ad.author.avatar;
+  adCard.classList.remove('hidden');
+  return adCard;
+}
 // вызывает создателя объектов
 var points = createObjects(8);
 // находит шаблон
 var template = document.querySelector('template');
 // элементы pin
-var pins = document.querySelector('.map__pins');
+var pins =
+  document.querySelector('.map__pins');
 var templatePin = template.content.querySelector('.map__pin');
 // находит элементы для карточки
 var templateCard = template.content.querySelector('.map__card');
@@ -171,35 +218,15 @@ var mainPinMouseupHandler = function () {
   renderPage(points);
   // отрисовываем пины
   removeFormDisabled();
+  mainPin.removeEventListener('mouseup', mainPinMouseupHandler);
 };
 mainPin.addEventListener('mouseup', mainPinMouseupHandler);
-// окна
-var pinClickHandler = function (point) {
-  adCard.querySelector('.popup__title').textContent = point.offer.title;
-  adCard.querySelector('.popup__text--address').textContent = point.offer.address; // добавили адрес из массива
-  adCard.querySelector('.popup__text--price').textContent = point.offer.price + '\u20bd/ночь';
-  adCard.querySelector('.popup__type').textContent = 'offer.title';
-  adCard.querySelector('.popup__text--capacity').textContent = '';
-  adCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + point.offer.checkin + ', выезд до ' + point.offer.checkout + '.';
-  adCard.querySelector('.popup__description').textContent = point.offer.description; // добавили заголовок из массива
-  adCard.querySelector('.popup__avatar').src = point.author.avatar; // Замена src у аватарки пользователя — изображения, которое записано в .popup__avatar — на значения поля author.avatar отрисовываемого объекта.
-  if (adCard.classList.contains('hidden')) {
-    adCard.classList.remove('hidden');
-  }
-  adCard = map.querySelector('article');
-};
 // Выбор адреса координат
-var x = mainPin.style.left;
-var y = mainPin.style.top;
-// координаты целыми числами с помощью встроенной в js функции parseInt
-x = parseInt(mainPin.style.left, 10); // 10 - основание системы счисления
-y = parseInt(mainPin.style.top, 10);
+
 // координаты кончика пина - к x прибавить половину ширины пина, а к y добавить его высоту
 var PIN_WIDTH = 62;
 var PIN_HEIGHT = 84;
-// координаты кончика пина
-x = parseInt(mainPin.style.left, 10) + PIN_WIDTH / 2;
-y = parseInt(mainPin.style.top, 10) + PIN_HEIGHT;
+
 // находим поле address
 var address = form.querySelector('#address');
 // пишем функцию
