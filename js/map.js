@@ -19,7 +19,7 @@ var activePin = null;
 // map.classList.remove('map--faded');
 // генерация случайного числа
 var generateRandIndex = function (min, max) {
-  var rand = Math.random () * (max - min + 1);
+  var rand = Math.random() * (max - min + 1);
   rand = Math.round(rand);
   return rand;
 };
@@ -54,8 +54,7 @@ var createObjects = function (quantity) {
     obj.offer = {};
     obj.location = {};
     if (numbersAvatar[i] <= 9) {
-      obj.author.avatar = 'img/avatars/user0' + numbersAvatar[i] + '.png';
-    }
+      obj.author.avatar = 'img/avatars/user0' + numbersAvatar[i] + '.png';}
     else {
       obj.author.avatar = 'img/avatars/user' + numbersAvatar[i] + '.png';
     }
@@ -96,7 +95,7 @@ var renderPage = function (points) {
   map.insertBefore(fragmentCard, mapFiltersContainer);
   adCard = map.querySelector('article');
   adCard.classList.add('hidden');
-    closeButton = adCard.querySelector('.popup__close');
+  closeButton = adCard.querySelector('.popup__close');
   closeButton.addEventListener('click', closeClickHandler);
 
 };
@@ -244,7 +243,6 @@ var inputType = adForm.querySelector('.select_type');
 var inputTimeIn = adForm.querySelector('.select_timein');
 var inputTimeOut = adForm.querySelector('.select_timeout');
  var inpputPrice = adForm.querySelector('.input_price');
-
 // проверка полей комнат и гостей при изменении поля с гостями
 var onInputGuestsChange = function () {
   if (inputRooms.value === '100' && inputGuests.value !== '0') {
