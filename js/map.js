@@ -97,7 +97,6 @@ var renderPage = function (points) {
   adCard.classList.add('hidden');
   closeButton = adCard.querySelector('.popup__close');
   closeButton.addEventListener('click', closeClickHandler);
-
 };
 
 // создаёт pin
@@ -254,7 +253,6 @@ var onInputGuestsChange = function () {
   }
 };
 
-
 // проверка полей комнат и гостей при изменении поля с комнатами
 var onInputRoomsChange = function () {
   if (inputRooms.value === '100' && inputGuests.value !== '0') {
@@ -265,7 +263,6 @@ var onInputRoomsChange = function () {
     inputGuests.setCustomValidity('');
   }
 };
-
 
 // установка минимальных цен в зависимости от типа дома
 var onInputTypeChange = function () {
@@ -286,7 +283,6 @@ var onInputTypeChange = function () {
 var onInputTimeInChange = function () {
   inputTimeOut.value = inputTimeIn.value;
 };
-
 
 var onInputTimeOutChange = function () {
   inputTimeIn.value = inputTimeOut.value;
