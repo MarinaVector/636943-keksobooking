@@ -54,8 +54,8 @@ var createObjects = function (quantity) {
     obj.offer = {};
     obj.location = {};
     if (numbersAvatar[i] <= 9) {
-      obj.author.avatar = 'img/avatars/user0' + numbersAvatar[i] + '.png';}
-    else {
+      obj.author.avatar = 'img/avatars/user0' + numbersAvatar[i] + '.png';
+    } else {
       obj.author.avatar = 'img/avatars/user' + numbersAvatar[i] + '.png';
     }
     obj.offer.title = TITLE_NAMES[i];
@@ -241,7 +241,7 @@ var inputGuests = adForm.querySelector('.select_capacity');
 var inputType = adForm.querySelector('.select_type');
 var inputTimeIn = adForm.querySelector('.select_timein');
 var inputTimeOut = adForm.querySelector('.select_timeout');
- var inpputPrice = adForm.querySelector('.input_price');
+var inpputPrice = adForm.querySelector('.input_price');
 // проверка полей комнат и гостей при изменении поля с гостями
 var onInputGuestsChange = function () {
   if (inputRooms.value === '100' && inputGuests.value !== '0') {
