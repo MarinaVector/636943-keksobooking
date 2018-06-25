@@ -260,9 +260,9 @@ var onInputGuestsChange = function () {
 // проверка полей комнат и гостей при изменении поля с комнатами
 var onInputRoomsChange = function () {
   if (inputRooms.value === '100' && inputGuests.value !== '0') {
-    inputGuests.setCustomValidity('Кол-во гостей не может быть больше кол-ва комнат. Только "100 комнат" для "не для гостей"');
+    inputGuests.setCustomValidity(Количество гостей не бывает больше чем комнат. "100 комнат" для "не для гостей"');
   } else if (inputRooms.value !== '100' && (inputRooms.value < inputGuests.value || inputGuests.value < 1)) {
-    inputGuests.setCustomValidity('Кол-во гостей не может быть больше кол-ва комнат. Только "100 комнат" для "не для гостей"');
+    inputGuests.setCustomValidity(Количество гостей не бывает больше чем комнат. "100 комнат" для "не для гостей"');
   } else {
     inputGuests.setCustomValidity('');
   }
