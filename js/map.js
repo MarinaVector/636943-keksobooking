@@ -298,7 +298,7 @@ var onInputTypeChange = function () {
     }
 };
 
-// синхронизация времени заезда и выезда
+// синхронизация времени заезда - выезда
 var onInputTimeInChange = function () {
   inputTimeOut.value = inputTimeIn.value;
 };
