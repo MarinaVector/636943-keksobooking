@@ -280,7 +280,7 @@ var onInputGuestsChange = function () {
         inputGuests.setCustomValidity('');
     }
 
-// установка минимальных цен в зависимости от типа дома
+// установка минимальных цен  от типа дома
 var onInputTypeChange = function () {
 
   if (inputType.value === 'flat') {
