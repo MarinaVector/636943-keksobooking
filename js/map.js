@@ -209,7 +209,8 @@ var removeFormDisabled = function () { // отменяет неактивное 
     form.querySelector('#title').maxLength = '100';
     formFieldset[i].disabled = '';
   }
-  form.querySelector('.ad-form__submit').disabled = '';  // разблокировали кнопку
+  form.querySelector('.ad-form__submit').disabled = '';
+  // разблокировали кнопку
   form.classList.remove('ad-form--disabled');
   form.querySelector('#title').minLength = '30';
   form.querySelector('#title').maxLength = '100';
@@ -251,7 +252,6 @@ var inputType = adForm.querySelector('.select_type');
 var inputTimeIn = adForm.querySelector('.select_timein');
 var inputTimeOut = adForm.querySelector('.select_timeout');
 var inpputPrice = adForm.querySelector('.input_price');
-var address = form.querySelector('#address');
 // проверка полей комнат и гостей при изменении поля с гостями
 var onInputGuestsChange = function () {
   if (inputRooms.value === '100' && inputGuests.value !== '0') {
@@ -264,22 +264,22 @@ var onInputGuestsChange = function () {
 };
 
 // проверка полей комнат и гостей при изменении поля с комнатами
- var onInputRoomsChange = function () {
-     if (inputRooms.value === '3') {
-      inputGuests.options[0].disabled = ''; // 3 гостя
-      inputGuests.options[1].disabled = ''; // 2 гостя
-      inputGuests.options[2].disabled = ''; // 1 гость
-      inputGuests.options[2].selected = true;
-      inputGuests.options[3].disabled = 'true'; // не для гостей
+var onInputRoomsChange = function () {
+  if (inputRooms.value === '3') {
+  inputGuests.options[0].disabled = ''; // 3 гостя
+  inputGuests.options[1].disabled = ''; // 2 гостя
+  inputGuests.options[2].disabled = ''; // 1 гость
+  inputGuests.options[2].selected = true;
+  inputGuests.options[3].disabled = 'true'; // не для гостей
   }
-    if (inputRooms.value === '100' && inputGuests.value !== '0') {
-        inputGuests.setCustomValidity('Количество гостей не бывает больше чем комнат.100 комнат для не для гостей');
-    } else if (inputRooms.value !== '100' && (inputRooms.value < inputGuests.value || inputGuests.value < 1)) {
-        inputGuests.setCustomValidity('Количество гостей не бывает больше чем комнат. 100 комнат для не для гостей');
-    } else {
-        inputGuests.setCustomValidity('');
-    }
- };
+  if (inputRooms.value === '100' && inputGuests.value !== '0') {
+    inputGuests.setCustomValidity('Количество гостей не бывает больше чем комнат.100 комнат для не для гостей');
+  } else if (inputRooms.value !== '100' && (inputRooms.value < inputGuests.value || inputGuests.value < 1)) {
+    inputGuests.setCustomValidity('Количество гостей не бывает больше чем комнат. 100 комнат для не для гостей');
+  } else {
+    inputGuests.setCustomValidity('');
+  }
+};
 
 // установка минимальных цен от типа домов
 var onInputTypeChange = function () {
@@ -294,9 +294,9 @@ var onInputTypeChange = function () {
     inpputPrice.min = 10000;
     inpputPrice.placeholder = 10000;
   } else if (inputType.value === 'bungalo') {
-        inpputPrice.min = 0;
-        inpputPrice.placeholder = 0;
-    }
+    inpputPrice.min = 0;
+    inpputPrice.placeholder = 0;
+  }
 };
 
 // синхронизация времени заезда и выезда
@@ -314,81 +314,78 @@ inputType.addEventListener('change', onInputTypeChange);
 inputTimeIn.addEventListener('change', onInputTimeInChange);
 
 var doSameSelectValue = function (select1, select2) {
-    var selectOption = select1.options.selectedIndex;
-    select2.options.selectedIndex = selectOption;
-  };
+  var selectOption = select1.options.selectedIndex;
+  select2.options.selectedIndex = selectOption;
+};
 
-   var resetForm = function () { // сброс формы
-    form.reset();
+var resetForm = function () { // сброс формы
+  form.reset();
 form.classList.add('ad-form--disabled');
 };
 
 // перетаскивание
 var dragPin = function () {
- var mapPinMain = map.querySelector('.map__pin--main');
-        var onMapPinMainMouseDown = function (evt) {
-            var startCoords = {
-                x: evt.clientX,
-                y: evt.clientY
-            }
-            };
+var mapPinMain = map.querySelector('.map__pin--main');
+var onMapPinMainMouseDown = function (evt) {
+var startCoords = {
+x: evt.clientX,
+y: evt.clientY
+}
 };
-               var onMapPinMainMove = function (moveEvt) {
-            var shift = {
-                x: startCoords.x - moveEvt.clientX,
-                y: startCoords.y - moveEvt.clientY
-            };
+};
+var onMapPinMainMove = function (moveEvt) {
+var shift = {
+x: startCoords.x - moveEvt.clientX,
+y: startCoords.y - moveEvt.clientY
+};
 
-            startCoords = {
-                x: moveEvt.x,
-                y: moveEvt.y
-            };
+startCoords = {
+x: moveEvt.x,
+y: moveEvt.y
+};
 
-            var mapWidth = map.offsetWidth;
-            var minTop = 130;
-            var maxTop = 630;
+var mapWidth = map.offsetWidth;
+var minTop = 130;
+var maxTop = 630;
 
-            mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
-            mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
+mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
 
-            if ((mapPinMain.offsetLeft - shift.x) > (mapWidth - mapPinMain.offsetWidth)) {
-                mapPinMain.style.left = mapWidth - mapPinMain.offsetWidth + 'px';
-            }
-            if ((mapPinMain.offsetLeft - shift.x) < (mapWidth - mapWidth)) {
-                mapPinMain.style.left = (mapWidth - mapWidth) + 'px';
-            }
-            if ((mapPinMain.offsetTop - shift.y) < (minTop - mapPinMain.offsetHeight)) {
-                mapPinMain.style.top = (minTop - mapPinMain.offsetHeight) + 'px';
-            }
-            if ((mapPinMain.offsetTop - shift.y) > maxTop) {
-                mapPinMain.style.top = maxTop + 'px';
-            }
-            setAddress(parseInt(mapPinMain.style.left, 10) + PIN_WIDTH / 2, parseInt(mapPinMain.style.top, 10) + PIN_HEIGHT);
-        };
+if ((mapPinMain.offsetLeft - shift.x) > (mapWidth - mapPinMain.offsetWidth)) {
+mapPinMain.style.left = mapWidth - mapPinMain.offsetWidth + 'px';
+}
+if ((mapPinMain.offsetLeft - shift.x) < (mapWidth - mapWidth)) {
+mapPinMain.style.left = (mapWidth - mapWidth) + 'px';
+}
+if ((mapPinMain.offsetTop - shift.y) < (minTop - mapPinMain.offsetHeight)) {
+mapPinMain.style.top = (minTop - mapPinMain.offsetHeight) + 'px';
+}
+if ((mapPinMain.offsetTop - shift.y) > maxTop) {
+mapPinMain.style.top = maxTop + 'px';
+}
+setAddress(parseInt(mapPinMain.style.left, 10) + PIN_WIDTH / 2, parseInt(mapPinMain.style.top, 10) + PIN_HEIGHT);
+};
 
-        var onMouseUp = function () {
-            document.removeEventListener('mousemove', onMapPinMainMove);
-            document.removeEventListener('mouseup', onMouseUp);
-               window.utils.getMainPinCoords();
+var onMouseUp = function () {
+document.removeEventListener('mousemove', onMapPinMainMove);
+document.removeEventListener('mouseup', onMouseUp);
 
-             // удаляет плашку если она есть
-       if (window.utils.map.classList.contains('map--faded')) {
-         window.utils.map.classList.remove('map--faded')();
-       }
-            //   удаляет плашку с формы
-       if (adForm.classList.contains('ad-form--disabled')) {
-         adForm.classList.remove('ad-form--disabled')();
-       }
-         // вызов функции показа пинов
-       showPins();
 
-        // вызов функции активации формы
-       window.acivateForm();
+// удаляет плашку если она есть
+if (document.map.classList.contains('map--faded')) {
+document.map.classList.remove('map--faded')();
+}
+// удаляет плашку с формы
+if (adForm.classList.contains('ad-form--disabled')) {
+adForm.classList.remove('ad-form--disabled')();
+}
+// вызов функции показа пинов
+showPins();
+
+// вызов функции активации формы
+window.acivateForm();
 document.addEventListener('mousemove', onMapPinMainMove);
-    document.addEventListener('mouseup', onMouseUp);
-    mapPinMain.addEventListener('mousedown', onMapPinMainMouseDown);
+document.addEventListener('mouseup', onMouseUp);
+mapPinMain.addEventListener('mousedown', onMapPinMainMouseDown);
 
-
- };
-
-
+};
