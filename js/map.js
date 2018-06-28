@@ -311,15 +311,6 @@ inputRooms.addEventListener('change', onInputRoomsChange);
 inputType.addEventListener('change', onInputTypeChange);
 inputTimeIn.addEventListener('change', onInputTimeInChange);
 
-var doSameSelectValue = function (select1, select2) {
-  var selectOption = select1.options.selectedIndex;
-  select2.options.selectedIndex = selectOption;
-};
-
-var resetForm = function () { // сброс формы
-  form.reset();
-  form.classList.add('ad-form--disabled');
-};
 // перетаскивание
 var mapPinMain = map.querySelector('.map__pin--main');
 var onMapPinMainMouseDown = function (evt) {
