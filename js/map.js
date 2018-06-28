@@ -18,13 +18,13 @@ var map = document.querySelector('.map');
 var activePin = null;
 // map.classList.remove('map--faded');
 // генерация случайного числа
-var generateRandIndex = function(min, max) {
+var generateRandIndex = function (min, max) {
   var rand = Math.random() * (max - min + 1);
   rand = Math.round(rand);
   return rand;
 };
 // перемешивание массива
-var arrayShuffle = function(array) {
+var arrayShuffle = function (array) {
   for (var i = array.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
     var temp = array[j];
@@ -34,7 +34,7 @@ var arrayShuffle = function(array) {
   return array;
 };
 // создаёт объекты
-var createObjects = function(quantity) {
+var createObjects = function (quantity) {
   var objects = [];
   var obj = {};
   // с массив для цифр аватара
@@ -57,7 +57,7 @@ var createObjects = function(quantity) {
       obj.author.avatar = 'img/avatars/user0' + numbersAvatar[i] + '.png';
     } else {
       obj.author.avatar = 'img/avatars/user' + numbersAvatar[i] + '.png';
-  }
+    }
     obj.offer.title = TITLE_NAMES[i];
     obj.location.x = generateRandIndex(300, 900);
     obj.location.y = generateRandIndex(130, 630);
@@ -99,7 +99,7 @@ var renderPage = function(points) {
   closeButton.addEventListener('click', closeClickHandler);
 };
 // создаёт pin
-var renderPins = function(point) {
+var renderPins = function (point) {
   var pin = templatePin.cloneNode(true);
   var pinWidth = templatePin.offsetWidth;
   var pinHeight = templatePin.offsetHeight;
@@ -107,7 +107,7 @@ var renderPins = function(point) {
   pin.style.top = point.location.y - pinHeight + 'px';
   pin.querySelector('img').src = point.author.avatar;
   pin.querySelector('img').alt = point.offer.title;
-  pin.addEventListener('click', function() {
+  pin.addEventListener ('click', function() {
     if (activePin) {
       activePin.classList.remove('map__pin--active');
     }
@@ -118,20 +118,20 @@ var renderPins = function(point) {
   });
   return pin;
 };
-var closeEscCardHandler = function(evt) {
+var closeEscCardHandler = function (evt) {
   if (evt.keyCode === ESC_KEY) {
     closeClickHandler();
   }
 };
-var closeClickHandler = function() {
+var closeClickHandler = function () {
   adCard.classList.add('hidden'); // делаем карточку невидимой
   activePin.classList.remove('map__pin--active'); // убираем активный пин
   document.removeEventListener('keydown', closeEscCardHandler);
 };
 // создаёт список фич
-var renderFeatures = function(arrFeatures) {
-  var fragmentFeatures = document.createDocumentFragment();
- var newFeatureElement;
+var renderFeatures = function (arrFeatures) {
+  var fragmentFeatures = document.createDocumentFragment ();
+  var newFeatureElement;
   for (var i = 0; i < arrFeatures.length; i++) {
     newFeatureElement = document.createElement('li');
     newFeatureElement.className = 'popup__feature popup__feature--' + arrFeatures[i];
@@ -140,18 +140,18 @@ var renderFeatures = function(arrFeatures) {
   return fragmentFeatures;
 };
 // список фото
-var renderPhotos = function(arrPhotos) {
+var renderPhotos = function (arrPhotos) {
   var photosContainer = document.createDocumentFragment();
   var templatePhoto = template.content.querySelector('.popup__photo');
   for (var i = 0; i < arrPhotos.length; i++) {
-  var photoElement = templatePhoto.cloneNode(true);
-  photoElement.src = arrPhotos[i];
-  photosContainer.appendChild(photoElement);
+    var photoElement = templatePhoto.cloneNode(true);
+    photoElement.src = arrPhotos[i];
+    photosContainer.appendChild(photoElement);
   }
   return photosContainer;
 };
 // создаёт карточку с данными
-var renderCard = function(renderArr) {
+var renderCard = function (renderArr) {
   var card = templateCard.cloneNode(true);
   card.querySelector('.popup__title').textContent = renderArr.offer.title;
   card.querySelector('.popup__text--address').textContent = renderArr.offer.address;
@@ -159,7 +159,7 @@ var renderCard = function(renderArr) {
   card.querySelector('.popup__type').textContent = HOUSE_TYPES[renderArr.offer.type];
   card.querySelector('.popup__text--capacity').textContent = renderArr.offer.rooms + ' комнаты для ' + renderArr.offer.guests + ' гостей';
   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + renderArr.offer.checkin + ', выезд до ' + renderArr.offer.checkout;
- card.querySelector('.popup__features').textContent = '';
+  card.querySelector('.popup__features').textContent = '';
   card.querySelector('.popup__features').appendChild(renderFeatures(renderArr.offer.features));
   card.querySelector('.popup__description').textContent = renderArr.offer.description;
   card.querySelector('.popup__photos').textContent = '';
@@ -167,11 +167,11 @@ var renderCard = function(renderArr) {
   card.querySelector('.popup__avatar').src = renderArr.author.avatar;
   return card;
 };
-var fillCard = function(ad) {
+var fillCard = function (ad) {
   adCard.querySelector('.popup__title').textContent = ad.offer.title;
   adCard.querySelector('.popup__text--address').textContent = ad.offer.address;
   adCard.querySelector('.popup__text--price').textContent = ad.offer.price + '₽/ночь';
- adCard.querySelector('.popup__type').textContent = HOUSE_TYPES[ad.offer.type];
+  adCard.querySelector('.popup__type').textContent = HOUSE_TYPES[ad.offer.type];
   adCard.querySelector('.popup__text--capacity').textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
   adCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
   adCard.querySelector('.popup__features').textContent = '';
@@ -197,7 +197,7 @@ var mapFiltersContainer = document.querySelector('.map__filters-container');
 var form = document.querySelector('.ad-form');
 var mainPin = document.querySelector('.map__pin--main');
 var formFieldset = form.querySelectorAll('fieldset');
-var removeFormDisabled = function() { // отменяет неактивное состояние формы
+var removeFormDisabled = function () { // отменяет неактивное состояние формы
   for (var i = 0; i < formFieldset.length; i++) {
     form.querySelector('#title').minLength = '30';
     form.querySelector('#title').maxLength = '100';
@@ -209,7 +209,7 @@ var removeFormDisabled = function() { // отменяет неактивное �
   form.querySelector('#title').minLength = '30';
   form.querySelector('#title').maxLength = '100';
 };
-var mainPinMouseupHandler = function() {
+var mainPinMouseupHandler = function () {
   map.classList.remove('map--faded'); // убираем неактивный фон
   renderPage(points);
   // отрисовываем пины
@@ -225,7 +225,7 @@ var PIN_HEIGHT = 84;
 // находим поле address
 var address = form.querySelector('#address');
 // пишем функцию
-var setAddress = function(xCoord, yCoord) {
+var setAddress = function (xCoord, yCoord) {
   var addresString = 'x: ' + xCoord + ', ' + 'y: ' + yCoord;
   address.value = addresString;
 };
@@ -240,10 +240,10 @@ var inputTimeIn = adForm.querySelector('.select_timein');
 var inputTimeOut = adForm.querySelector('.select_timeout');
 var inpputPrice = adForm.querySelector('.input_price');
 // проверка полей комнат и гостей при изменении поля с гостями
-var onInputGuestsChange = function() {
+var onInputGuestsChange = function () {
   if (inputRooms.value === '100' && inputGuests.value !== '0') {
     inputGuests.setCustomValidity('Количество гостей не бывает больше чем комнат. 100 комнат для не для гостей');
-    } else if (inputRooms.value !== '100' && (inputRooms.value < inputGuests.value || inputGuests.value < 1)) {
+   } else if (inputRooms.value !== '100' && (inputRooms.value < inputGuests.value || inputGuests.value < 1)) {
     inputGuests.setCustomValidity('Количествово гостей не бывает больше чем комнат.100 комнат для не для гостей');
   } else {
     inputGuests.setCustomValidity('');
@@ -257,28 +257,28 @@ var onInputRoomsChange = function() {
     inputGuests.options[2].disabled = ''; // 1 гость
     inputGuests.options[2].selected = true;
     inputGuests.options[3].disabled = 'true'; // не для гостей
-  };
+  }
   if (inputRooms.value === '1') {
     inputGuests.options[0].disabled = 'true'; // 3 гостя
     inputGuests.options[1].disabled = 'true'; // 2 гостя
     inputGuests.options[2].disabled = ''; // 1 гость
     inputGuests.options[2].selected = true;
     inputGuests.options[3].disabled = 'true'; // не для гостей
-  };
+  }
   if (inputRooms.value === '2') {
     inputGuests.options[0].disabled = 'true'; // 3 гостя
     inputGuests.options[1].disabled = ''; // 2 гостя
     inputGuests.options[2].disabled = ''; // 1 гость
     inputGuests.options[2].selected = true;
     inputGuests.options[3].disabled = 'true'; // не для гостей
-  };
+  }
   if (inputRooms.value === '100') {
     inputGuests.options[0].disabled = 'true'; // 3 гостя
     inputGuests.options[1].disabled = 'true'; // 2 гостя
     inputGuests.options[2].disabled = 'true'; // 1 гость
     inputGuests.options[2].selected = true;
     inputGuests.options[3].disabled = ''; // не для гостей
- };
+  }
 };
 // установка минимальных цен от типа домов
 var onInputTypeChange = function() {
@@ -290,17 +290,17 @@ var onInputTypeChange = function() {
     inpputPrice.placeholder = 5000;
   } else if (inputType.value === 'palace') {
     inpputPrice.min = 10000;
-  inpputPrice.placeholder = 10000;
+    inpputPrice.placeholder = 10000;
   } else if (inputType.value === 'bungalo') {
     inpputPrice.min = 0;
     inpputPrice.placeholder = 0;
   }
 };
 // синхронизация времени заезда и выезда
-var onInputTimeInChange = function() {
- inputTimeOut.value = inputTimeIn.value;
+var onInputTimeInChange = function () {
+  inputTimeOut.value = inputTimeIn.value;
 };
-var onInputTimeOutChange = function() {
+var onInputTimeOutChange = function () {
   inputTimeIn.value = inputTimeOut.value;
 };
 inputTimeOut.addEventListener('change', onInputTimeOutChange);
@@ -308,24 +308,24 @@ inputGuests.addEventListener('change', onInputGuestsChange);
 inputRooms.addEventListener('change', onInputRoomsChange);
 inputType.addEventListener('change', onInputTypeChange);
 inputTimeIn.addEventListener('change', onInputTimeInChange);
-var doSameSelectValue = function(select1, select2) {
+var doSameSelectValue = function (select1, select2) {
   var selectOption = select1.options.selectedIndex;
   select2.options.selectedIndex = selectOption;
 };
-var resetForm = function() { // сброс формы
+var resetForm = function ( ) { // сброс формы
   form.reset();
   form.classList.add('ad-form--disabled');
 };
 // перетаскивание
 var mapPinMain = map.querySelector('.map__pin--main');
-var onMapPinMainMouseDown = function(evt) {
+var onMapPinMainMouseDown = function (evt) {
   var startCoords = {
     x: evt.clientX,
     y: evt.clientY
   };
-  var onMapPinMainMove = function(moveEvt) {
+  var onMapPinMainMove = function (moveEvt) {
     var shift = {
-       x: startCoords.x - moveEvt.clientX,
+      x: startCoords.x - moveEvt.clientX,
       y: startCoords.y - moveEvt.clientY
     };
     startCoords = {
@@ -347,13 +347,13 @@ var onMapPinMainMouseDown = function(evt) {
       mapPinMain.style.top = (minTop - mapPinMain.offsetHeight) + 'px';
     }
     if ((mapPinMain.offsetTop - shift.y) > maxTop) {
-   mapPinMain.style.top = maxTop + 'px';
-  }
-  setAddress(parseInt(mapPinMain.style.left, 10) + PIN_WIDTH / 2, parseInt(mapPinMain.style.top, 10) + PIN_HEIGHT);
+    mapPinMain.style.top = maxTop + 'px';
+    }
+    setAddress(parseInt(mapPinMain.style.left, 10) + PIN_WIDTH / 2, parseInt(mapPinMain.style.top, 10) + PIN_HEIGHT);
   };
-  var onMouseUp = function() {
-  document.removeEventListener('mousemove', onMapPinMainMove);
-  document.removeEventListener('mouseup', onMouseUp);
+  var onMouseUp = function () {
+    document.removeEventListener('mousemove', onMapPinMainMove);
+    document.removeEventListener('mouseup', onMouseUp);
   //  window.utils.getMainPinCoords();
   // удаляет плашку если она есть
   // if (window.utils.map.classList.contains('map--faded')) {
