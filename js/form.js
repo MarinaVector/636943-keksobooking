@@ -1,6 +1,6 @@
 ﻿'use strict';
 (function () {
-  // форма отправки
+  // форма отправки объявления
   var adForm = document.querySelector('.ad-form');
   var inputRooms = adForm.querySelector('.select_room_number');
   var inputGuests = adForm.querySelector('.select_capacity');
@@ -8,6 +8,25 @@
   var inputTimeIn = adForm.querySelector('.select_timein');
   var inputTimeOut = adForm.querySelector('.select_timeout');
   var inpputPrice = adForm.querySelector('.input_price');
+  var address = adForm.querySelector('#address');
+  var formFieldset = adForm.querySelectorAll('fieldset');
+  var removeFormDisabled = function () { // отменяет неактивное состояние формы
+    for (var i = 0; i < formFieldset.length; i++) {
+      adForm.querySelector('#title').minLength = '30';
+      adForm.querySelector('#title').maxLength = '100';
+      formFieldset[i].disabled = '';
+    }
+    adForm.querySelector('.ad-form__submit').disabled = '';
+    // разблокировали кнопку
+    adForm.classList.remove('ad-form--disabled');
+    adForm.querySelector('#title').minLength = '30';
+    adForm.querySelector('#title').maxLength = '100';
+  };
+  // пишем функцию
+  var setAddress = function (xCoord, yCoord) {
+    var addresString = 'x: ' + xCoord + ', ' + 'y: ' + yCoord;
+    address.value = addresString;
+  };
   // проверка полей комнат и гостей при изменении поля с гостями
   var onInputGuestsChange = function () {
     if (inputRooms.value === '100' && inputGuests.value !== '0') {
@@ -79,5 +98,10 @@
   inputRooms.addEventListener('change', onInputRoomsChange);
   inputType.addEventListener('change', onInputTypeChange);
   inputTimeIn.addEventListener('change', onInputTimeInChange);
+
+  window.form = {
+    setAddressValue: setAddress,
+    initForm: removeFormDisabled
+  }
 
 })();
