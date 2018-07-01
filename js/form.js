@@ -102,6 +102,6 @@
   window.form = {
     setAddressValue: setAddress,
     initForm: removeFormDisabled
-  }
+  };
 
 })();

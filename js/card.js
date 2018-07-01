@@ -13,9 +13,6 @@
   // находит элементы для карточки
   var templateCard = template.content.querySelector('.map__card');
   var map = document.querySelector('.map');
-  var activePin = null;
-  var adCard = null;
-  var closeButton = null;
   var closeEscCardHandler = function (evt) {
     if (evt.keyCode === ESC_KEY) {
       closeClickHandler();
