@@ -77,7 +77,6 @@
   };
   // вызывает создателя объектов
   var point = createObjects(8);
-  var rend = createObjects(8);
 
   // ветка 4 новое
 
@@ -99,7 +98,7 @@
 
   mapPinMain.addEventListener('mouseup', mainPinMouseupHandler);
 
-  var renderPage = function (rend) {
+  var renderPage = function (points) {
     // рисует pin
     var fragmentPin = document.createDocumentFragment();
     for (var i = 0; i < points.length; i++) {
