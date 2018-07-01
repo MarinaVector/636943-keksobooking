@@ -76,6 +76,7 @@
     return objects;
   };
   // вызывает создателя объектов
+  var point = createObjects(8);
   var points = createObjects(8);
 
   // ветка 4 новое
@@ -89,7 +90,7 @@
   var mainPinMouseupHandler = function () {
 
     map.classList.remove('map--faded'); // убираем неактивный фон
-    renderPage(points);
+    renderPage(point);
     //     отрисовываем пины
     window.form.initForm();
     window.form.setAddressValue(parseInt(mapPinMain.style.left, 10) + PIN_WIDTH / 2, parseInt(mapPinMain.style.top, 10) + PIN_HEIGHT);
