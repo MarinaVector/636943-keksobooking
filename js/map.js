@@ -71,8 +71,6 @@
     }
     return objects;
   };
-  // вызывает создателя объектов
-  var point = createObjects(8);
 
   var map = document.querySelector('.map');
   var mapFiltersContainer = document.querySelector('.map__filters-container');
@@ -96,11 +94,6 @@
     window.form.setAddressValue(parseInt(mapPinMain.style.left, 10) + PIN_WIDTH / 2, parseInt(mapPinMain.style.top, 10) + PIN_HEIGHT);
     mapPinMain.removeEventListener('mouseup', mainPinMouseupHandler);
   };
-
-  var onLoadData = function (data) {
-    points = data;
-    renderPage(points);
-  }
 
   var deleteErrorMessage = function () { // удаление сообщения об ошибке
     var body = document.querySelector('body');
@@ -126,26 +119,24 @@
     document.body.insertAdjacentElement('afterbegin', node);
     setTimeout(deleteErrorMessage, 3000);
   };
-
   mapPinMain.addEventListener('mouseup', mainPinMouseupHandler);
 
-  var
-    renderPage = function (points) {
-      // рисует pin
-      var fragmentPin = document.createDocumentFragment();
-      for (var i = 0; i < points.length; i++) {
-        fragmentPin.appendChild(window.pin.renderPin(points[i]));
-      }
-      pins.appendChild(fragmentPin);
-      // рисует карточку
-      var fragmentCard = document.createDocumentFragment();
-      fragmentCard.appendChild(window.card.renderCard(points[0]));
-      map.insertBefore(fragmentCard, mapFiltersContainer);
-      adCard = map.querySelector('article');
-      adCard.classList.add('hidden');
-      var closeButton = adCard.querySelector('.popup__close');
-      closeButton.addEventListener('click', window.card.closeClickHandler);
-    };
+  var renderPage = function (points) {
+    // рисует pin
+    var fragmentPin = document.createDocumentFragment();
+    for (var i = 0; i < points.length; i++) {
+      fragmentPin.appendChild(window.pin.renderPin(points[i]));
+    }
+    pins.appendChild(fragmentPin);
+    // рисует карточку
+    var fragmentCard = document.createDocumentFragment();
+    fragmentCard.appendChild(window.card.renderCard(points[0]));
+    map.insertBefore(fragmentCard, mapFiltersContainer);
+    adCard = map.querySelector('article');
+    adCard.classList.add('hidden');
+    var closeButton = adCard.querySelector('.popup__close');
+    closeButton.addEventListener('click', window.card.closeClickHandler);
+  };
 
   // перетаскивание
   var onMapPinMainMouseDown = function (evt) {
