@@ -10,7 +10,7 @@
   var FEATURES_SERVICES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
   // создаёт объекты
-  var createObjects = function (quantity) {
+  function createObjects(quantity) {
     var objects = [];
     var obj = {};
     // перемешивание массива
@@ -83,7 +83,7 @@
   var mapPinMain = map.querySelector('.map__pin--main');
   var pins = map.querySelector('.map__pins');
   var points = {}; // массив объявлений
-
+  var point = {};
   var mainPinMouseupHandler = function () {
 
     map.classList.remove('map--faded'); // убираем неактивный фон
@@ -102,8 +102,8 @@
   };
 
   var onLoadData = function (data) {
-    points = data;
-    renderPage(points);
+    point = data;
+    renderPage(point);
   };
 
   var onErrorMessage = function (errorMessage) {
