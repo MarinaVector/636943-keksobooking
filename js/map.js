@@ -70,6 +70,7 @@
       objects.push(obj);
     }
     return objects;
+    createObjects();
   };
 
   var map = document.querySelector('.map');
@@ -83,7 +84,6 @@
   var mapPinMain = map.querySelector('.map__pin--main');
   var pins = map.querySelector('.map__pins');
   var points = {}; // массив объявлений
-  var point = {};
   var mainPinMouseupHandler = function () {
 
     map.classList.remove('map--faded'); // убираем неактивный фон
@@ -102,8 +102,8 @@
   };
 
   var onLoadData = function (data) {
-    point = data;
-    renderPage(point);
+    points = data;
+    renderPage(points);
   };
 
   var onErrorMessage = function (errorMessage) {
@@ -126,16 +126,16 @@
   };
   mapPinMain.addEventListener('mouseup', mainPinMouseupHandler);
 
-  var renderPage = function (points) {
+  var renderPage = function (point) {
     // рисует pin
     var fragmentPin = document.createDocumentFragment();
-    for (var i = 0; i < points.length; i++) {
-      fragmentPin.appendChild(window.pin.renderPin(points[i]));
+    for (var i = 0; i < point.length; i++) {
+      fragmentPin.appendChild(window.pin.renderPin(point[i]));
     }
     pins.appendChild(fragmentPin);
     // рисует карточку
     var fragmentCard = document.createDocumentFragment();
-    fragmentCard.appendChild(window.card.renderCard(points[0]));
+    fragmentCard.appendChild(window.card.renderCard(point[0]));
     map.insertBefore(fragmentCard, mapFiltersContainer);
     adCard = map.querySelector('article');
     adCard.classList.add('hidden');
