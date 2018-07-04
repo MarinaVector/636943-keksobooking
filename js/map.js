@@ -70,7 +70,7 @@
       objects.push(obj);
     }
     return objects;
-  };
+  }
   createObjects();
 
   var map = document.querySelector('.map');
