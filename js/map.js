@@ -101,6 +101,11 @@
     body.removeChild(errorDiv);
   };
 
+  var onLoadData = function (data) {
+    points = data;
+    renderPage(points);
+  };
+
   var onErrorMessage = function (errorMessage) {
     var node = document.createElement('div');
     node.classList.add('error__message');
