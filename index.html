@@ -12,13 +12,13 @@
 <body>
 
   <main>
-    <div class="promo">
+    <div class="promo error__message">
       <h1 class="promo__title visually-hidden">Keksobooking - Кексы по соседств</h1>
       <img src="img/keksobooking.svg" alt="Keksobooking - Кексы по соседству" width="215" height="45">
     </div>
 
     <section class="map map--faded">
-      <div class="map__pins">
+      <div class="map__pins error__message">
         <div class="map__overlay">
           <h2 class="map__title">И снова Токио !</h2>
         </div>
@@ -35,7 +35,7 @@
         </button>
       </div>
 
-      <div class="map__filters-container">
+      <div class="map__filters-container error__message">
         <form action="#" class="map__filters" autocomplete="off">
           <select name="housing-type" id="housing-type" class="map__filter">
             <option value="any" selected>Любой тип жилья</option>
@@ -95,12 +95,12 @@
       <form class="ad-form ad-form--" method="post" enctype="multipart/form-data" action="https://js.dump.academy/keksobooking" autocomplete="off">
         <fieldset disabled class="ad-form-header">
           <legend class="ad-form-header__title">Ваша фотография (для карты)</legend>
-          <div class="ad-form-header__upload">
-            <div class="upload">
-              <div class="ad-form-header__preview">
+          <div class="ad-form-header__upload error__message">
+            <div class="upload error__message">
+              <div class="ad-form-header__preview error__message">
                 <img src="img/muffin-grey.svg" alt="Аватар пользователя" width="40" height="44">
               </div>
-              <div class="ad-form__field">
+              <div class="ad-form__field error__message">
                 <input type="file" id="avatar" name="avatar" class="ad-form-header__input visually-hidden">
                 <label class="ad-form-header drop-zone" for="avatar">Загрузите или&nbsp;перетащите сюда фото</label>
               </div>
@@ -198,12 +198,12 @@
 
         <fieldset disabled class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label">Фотографии жилья</label>
-          <div class="ad-form__photo-container">
-            <div class="ad-form__upload">
+          <div class="ad-form__photo-container error__message">
+            <div class="ad-form__upload error__message">
               <input type="file" id="images" name="images" class="ad-form__input visually-hidden">
               <label for="images" class="ad-form__drop-zone">Загрузите или&nbsp;перетащите сюда фото</label>
             </div>
-            <div class="ad-form__photo"></div>
+            <div class="ad-form__photo error__message"></div>
           </div>
         </fieldset>
 
@@ -213,13 +213,13 @@
       </form>
     </section>
 
-    <div class="success hidden">
+    <div class="success hidden error__message">
       <p class="success__message">Ваше объявление<br>успешно размещено!</p>
     </div>
   </main>
 
   <footer class="footer container">
-    <div class="footer__copyright copyright">
+    <div class="footer__copyright copyright error__message">
       <a class="copyright__link copyright__link--image" href="https://htmlacademy.ru/intensive/javascript">
         <img src="img/htmla-logo.svg" width="130" height="45" alt="HTML Academy" class="copyright__logo">
       </a>
@@ -261,7 +261,7 @@
         <li class="popup__feature popup__feature--conditioner"></li>
       </ul>
       <p class="popup__description">Великолепная квартира-студия в центре Токио. Подходит как туристам, так и бизнесменам. Квартира полностью укомплектована и недавно отремонтирована.</p>
-      <div class="popup__photos">
+      <div class="popup__photos error__message">
         <img src="" class="popup__photo" width="45" height="40" alt="Фотография жилья">
       </div>
     </article>
@@ -269,11 +269,11 @@
     <button type="button" class="map__pin" style="left: 200px; top: 400px;"><img src="img/avatars/user07.png" width="40" height="40" draggable="false" alt="Метка объявления"></button>
   </template>
 
-  <script src="js/map.js"></script>
+  <script src="js/backend.js"></script>
   <script src="js/card.js"></script>
   <script src="js/pin.js"></script>
   <script src="js/form.js"></script>
-
+  <script src="js/map.js"></script>
 </body>
 
 </html>

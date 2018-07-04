@@ -8,13 +8,9 @@
   var OBJECT_TYPE = ['palace', 'flat', 'house', 'bungalo'];
   var CHECKIN_TIMES = ['12:00', '13:00', '14:00'];
   var FEATURES_SERVICES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  // находит шаблон
 
-  var map = document.querySelector('.map');
-  var mapFiltersContainer = document.querySelector('.map__filters-container');
-  var adCard = null;
   // создаёт объекты
-  var createObjects = function (quantity) {
+  function createObjects(quantity) {
     var objects = [];
     var obj = {};
     // перемешивание массива
@@ -74,10 +70,12 @@
       objects.push(obj);
     }
     return objects;
-  };
-  // вызывает создателя объектов
-  var point = createObjects(8);
+  }
+  createObjects();
 
+  var map = document.querySelector('.map');
+  var mapFiltersContainer = document.querySelector('.map__filters-container');
+  var adCard = null;
   // ветка 4 новое
 
   var PIN_WIDTH = 62;
@@ -85,29 +83,59 @@
 
   var mapPinMain = map.querySelector('.map__pin--main');
   var pins = map.querySelector('.map__pins');
-
+  var points = {}; // массив объявлений
   var mainPinMouseupHandler = function () {
 
     map.classList.remove('map--faded'); // убираем неактивный фон
-    renderPage(point);
-    //     отрисовываем пины
+    // отрисовать пины по данным, полученным с сервера
+    window.backend.download(onLoadData, onErrorMessage);
+    // отрисовываем пины
     window.form.initForm();
     window.form.setAddressValue(parseInt(mapPinMain.style.left, 10) + PIN_WIDTH / 2, parseInt(mapPinMain.style.top, 10) + PIN_HEIGHT);
     mapPinMain.removeEventListener('mouseup', mainPinMouseupHandler);
   };
 
+  var deleteErrorMessage = function () { // удаление сообщения об ошибке
+    var body = document.querySelector('body');
+    var errorDiv = document.querySelector('.error__message');
+    body.removeChild(errorDiv);
+  };
+
+  var onLoadData = function (data) {
+    points = data;
+    renderPage(points);
+  };
+
+  var onErrorMessage = function (errorMessage) {
+    var node = document.createElement('div');
+    node.classList.add('error__message');
+    node.style.zIndex = 100;
+    node.style.width = '50%';
+    node.style.transform = 'translateX(-50%) translateY(-50%)';
+    node.style.margin = '0 auto';
+    node.style.textAlign = 'center';
+    node.style.backgroundColor = '#DC143C';
+    node.style.fontWeight = 'bold';
+    node.style.position = 'fixed';
+    node.style.top = '50%';
+    node.style.left = '50%';
+    node.style.fontSize = '30px';
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+    setTimeout(deleteErrorMessage, 3000);
+  };
   mapPinMain.addEventListener('mouseup', mainPinMouseupHandler);
 
-  var renderPage = function (points) {
+  var renderPage = function (point) {
     // рисует pin
     var fragmentPin = document.createDocumentFragment();
-    for (var i = 0; i < points.length; i++) {
-      fragmentPin.appendChild(window.pin.renderPin(points[i]));
+    for (var i = 0; i < point.length; i++) {
+      fragmentPin.appendChild(window.pin.renderPin(point[i]));
     }
     pins.appendChild(fragmentPin);
     // рисует карточку
     var fragmentCard = document.createDocumentFragment();
-    fragmentCard.appendChild(window.card.renderCard(points[0]));
+    fragmentCard.appendChild(window.card.renderCard(point[0]));
     map.insertBefore(fragmentCard, mapFiltersContainer);
     adCard = map.querySelector('article');
     adCard.classList.add('hidden');
@@ -115,7 +143,7 @@
     closeButton.addEventListener('click', window.card.closeClickHandler);
   };
 
-  //   перетаскивание
+  // перетаскивание
   var onMapPinMainMouseDown = function (evt) {
     var startCoords = {
       x: evt.clientX,
