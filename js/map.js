@@ -70,8 +70,8 @@
       objects.push(obj);
     }
     return objects;
-    createObjects();
   };
+  createObjects();
 
   var map = document.querySelector('.map');
   var mapFiltersContainer = document.querySelector('.map__filters-container');
