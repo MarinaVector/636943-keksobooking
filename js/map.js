@@ -32,7 +32,7 @@
     // рисует pin
     var fragmentPin = document.createDocumentFragment();
     if (points.length < maxPinsCount) {
-      maxPinsCount = points.length
+      maxPinsCount = points.length;
     }
     for (var i = 0; i < maxPinsCount; i++) {
       fragmentPin.appendChild(window.pin.renderPin(point[i]));

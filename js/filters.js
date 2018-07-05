@@ -77,7 +77,7 @@
 
   var filtersChangeHandlers = function () {
     var card = document.querySelector('.map__card');
-    var mapPin = document.querySelectorAll('.map__pin'); //нашли все пины
+    var mapPin = document.querySelectorAll('.map__pin'); // нашли все пины
     if (card !== null) {
       card.classList.add('hidden');
     }
