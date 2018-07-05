@@ -28,6 +28,11 @@
 
     return xhr;
   };
+ var deleteErrorMessage = function () { // удаление сообщения об ошибке
+    var body = document.querySelector('body');
+    var errorDiv = document.querySelector('.error__message');
+    body.removeChild(errorDiv);
+  };
 
   window.backend = {
     upload: function (data, onLoad, onError) {
@@ -41,7 +46,25 @@
 
       xhr.open('GET', SERVER_URL + '/data');
       xhr.send();
-    }
+    },
+     onErrorMessage:  function (errorMessage) {
+    var node = document.createElement('div');
+    node.classList.add('error__message');
+    node.style.zIndex = 100;
+    node.style.width = '50%';
+    node.style.transform = 'translateX(-50%) translateY(-50%)';
+    node.style.margin = '0 auto';
+    node.style.textAlign = 'center';
+    node.style.backgroundColor = '#DC143C';
+    node.style.fontWeight = 'bold';
+    node.style.position = 'fixed';
+    node.style.top = '50%';
+    node.style.left = '50%';
+    node.style.fontSize = '30px';
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+    setTimeout(deleteErrorMessage, 3000);
+  }
   };
 
 })();
