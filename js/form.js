@@ -68,7 +68,7 @@
       inputGuests.options[3].disabled = ''; // не для гостей
     }
   };
-  // установка минимальных цен от типа домов
+  // установка минимальных цен в зависимости от типа домов
   var onInputTypeChange = function () {
     if (inputType.value === 'flat') {
       inpputPrice.min = 1000;
