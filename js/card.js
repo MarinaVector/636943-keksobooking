@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 (function () {
   // работа с карточкой объявления
   var ESC_KEY = 27;
