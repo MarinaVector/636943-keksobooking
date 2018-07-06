@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 (function () {
   // форма отправки объявления
   var adForm = document.querySelector('.ad-form');

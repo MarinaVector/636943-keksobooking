@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 (function () {
   // находит шаблон
   var template = document.querySelector('template');

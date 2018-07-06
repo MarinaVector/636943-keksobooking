@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 (function () {
   var SERVER_URL = 'https://js.dump.academy/keksobooking';
