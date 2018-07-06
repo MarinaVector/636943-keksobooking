@@ -172,7 +172,7 @@
         <fieldset disabled class="ad-form__element ad-form__element--wide features">
           <legend>Удобства: Wi-Fi, кухня, парковка, стиралка, лифт, кондиционер</legend>
 
-          <input type="checkbox" name="features" value="wifi" id="feature-wifi" class="feature__checkbox visually-hidden" disabled>
+          <input type="checkbox" name="features" value="wifi" id="feature-wifi" class="feature__checkbox visually-hidden">
           <label class="feature feature--wifi" for="feature-wifi">Wi-Fi</label>
 
           <input type="checkbox" name="features" value="dishwasher" id="feature-dishwasher" class="feature__checkbox visually-hidden">
@@ -270,10 +270,13 @@
   </template>
 
   <script src="js/backend.js"></script>
+  <script src="js/debounce.js"></script>
+  <script src="js/filters.js"></script>
   <script src="js/card.js"></script>
   <script src="js/pin.js"></script>
   <script src="js/form.js"></script>
   <script src="js/map.js"></script>
+
 </body>
 
 </html>
