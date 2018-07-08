@@ -116,8 +116,8 @@
     window.form.clearForm();
     window.form.disableForm();
     window.form.setAddressValue(parseInt(mapPinMain.style.left, 10) + PIN_WIDTH / 2, parseInt(mapPinMain.style.top, 10) + PIN_HEIGHT); // установка адреса
-  }
+  };
   window.map = {
     makePageInactive: makePageInactive
-  }
+  };
 })();

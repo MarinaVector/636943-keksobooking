@@ -48,7 +48,7 @@
     adForm.querySelector('.ad-form__submit').disabled = true;
     adForm.classList.add('ad-form--disabled');
 
-  }
+  };
   //
   var setAddress = function (xCoord, yCoord) {
     var addresString = 'x: ' + xCoord + ', ' + 'y: ' + yCoord;
@@ -146,17 +146,17 @@
     document.addEventListener('keydown', onSuccessEscPress); // по нажатию esc
     document.addEventListener('click', onSuccessClick); //  просто по клику на документе
     window.map.makePageInactive(); // перевод страницы в неактивное состояние
-  }
+  };
 
   var formSubmitHandler = function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(adForm), onUpLoad, window.backend.onErrorMessage);
   };
   var clearForm = function () {
-adForm.reset();
-window.userPictures.removeAvatar();
-window.userPictures.removeImages();
-}
+    adForm.reset();
+    window.userPictures.removeAvatar();
+    window.userPictures.removeImages();
+  };
   var resetFormHandler = function (evt) {
     //
     evt.preventDefault();
@@ -171,7 +171,7 @@ window.userPictures.removeImages();
     inputGuests.options[2].selected = true;
     inputGuests.options[3].disabled = 'true'; // не для гостей
 
-  }
+  };
 
   adForm.addEventListener('submit', formSubmitHandler);
   formReset.addEventListener('click', resetFormHandler);
