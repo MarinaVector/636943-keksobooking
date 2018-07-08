@@ -1,7 +1,15 @@
 'use strict';
 (function () {
+  var ESC_KEYCODE = 27;
+  var PIN_WIDTH = 62;
+  var PIN_HEIGHT = 84;
+  var START_MAIN_PIN_LEFT = 570;
+  var START_MAIN_PIN_TOP = 375;
   // форма отправки объявления
   var adForm = document.querySelector('.ad-form');
+  var formReset = adForm.querySelector('.ad-form__reset');
+  var formSuccess = document.querySelector('.success');
+
   var inputRooms = adForm.querySelector('.select_room_number');
   var inputGuests = adForm.querySelector('.select_capacity');
   var inputType = adForm.querySelector('.select_type');
@@ -12,8 +20,7 @@
   var formFieldset = adForm.querySelectorAll('fieldset');
   var removeFormDisabled = function () { // отменяет неактивное состояние формы
     for (var i = 0; i < formFieldset.length; i++) {
-      adForm.querySelector('#title').minLength = '30';
-      adForm.querySelector('#title').maxLength = '100';
+
       formFieldset[i].disabled = '';
     }
     adForm.querySelector('.ad-form__submit').disabled = '';
@@ -21,8 +28,28 @@
     adForm.classList.remove('ad-form--disabled');
     adForm.querySelector('#title').minLength = '30';
     adForm.querySelector('#title').maxLength = '100';
+    setAddress(START_MAIN_PIN_LEFT + PIN_WIDTH / 2, START_MAIN_PIN_TOP + PIN_HEIGHT); // адрес надо заполнить
+    inpputPrice.value = '';
+    inpputPrice.placeholder = '1000';
+    inpputPrice.min = 1000;
+    inputGuests.options[0].disabled = 'true'; // 3 гостя
+    inputGuests.options[1].disabled = 'true'; // 2 гостя
+    inputGuests.options[2].disabled = ''; // 1 гость
+    inputGuests.options[2].selected = true;
+    inputGuests.options[3].disabled = 'true'; // не для гостей
+
   };
-  // пишем функцию
+
+  var disableForm = function () {
+    for (var i = 0; i < formFieldset.length; i++) {
+
+      formFieldset[i].disabled = true;
+    }
+    adForm.querySelector('.ad-form__submit').disabled = true;
+    adForm.classList.add('ad-form--disabled');
+
+  }
+  //
   var setAddress = function (xCoord, yCoord) {
     var addresString = 'x: ' + xCoord + ', ' + 'y: ' + yCoord;
     address.value = addresString;
@@ -99,9 +126,60 @@
   inputType.addEventListener('change', onInputTypeChange);
   inputTimeIn.addEventListener('change', onInputTimeInChange);
 
+  var closeSuccess = function () {
+    formSuccess.classList.add('hidden');
+    document.removeEventListener('keydown', onSuccessEscPress);
+    document.removeEventListener('click', onSuccessClick);
+  };
+  var onSuccessEscPress = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      closeSuccess();
+    }
+  };
+  var onSuccessClick = function () {
+    closeSuccess();
+  };
+
+  var onUpLoad = function () {
+    formSuccess.classList.remove('hidden'); // показываем блок success
+    //   и навешиваем слушателей на документ  для закрытия сообщения об успешной отправке формы
+    document.addEventListener('keydown', onSuccessEscPress); // по нажатию esc
+    document.addEventListener('click', onSuccessClick); //  просто по клику на документе
+    window.map.makePageInactive(); // перевод страницы в неактивное состояние
+  }
+
+  var formSubmitHandler = function (evt) {
+    evt.preventDefault();
+    window.backend.upload(new FormData(adForm), onUpLoad, window.backend.onErrorMessage);
+  };
+  var clearForm = function () {
+adForm.reset();
+window.userPictures.removeAvatar();
+window.userPictures.removeImages();
+}
+  var resetFormHandler = function (evt) {
+    //
+    evt.preventDefault();
+    adForm.reset();
+    setAddress(START_MAIN_PIN_LEFT + PIN_WIDTH / 2, START_MAIN_PIN_TOP + PIN_HEIGHT); // адрес надо заполнить
+    inpputPrice.value = '';
+    inpputPrice.placeholder = '1000';
+    inpputPrice.min = 1000;
+    inputGuests.options[0].disabled = 'true'; // 3 гостя
+    inputGuests.options[1].disabled = 'true'; // 2 гостя
+    inputGuests.options[2].disabled = ''; // 1 гость
+    inputGuests.options[2].selected = true;
+    inputGuests.options[3].disabled = 'true'; // не для гостей
+
+  }
+
+  adForm.addEventListener('submit', formSubmitHandler);
+  formReset.addEventListener('click', resetFormHandler);
   window.form = {
     setAddressValue: setAddress,
-    initForm: removeFormDisabled
+    initForm: removeFormDisabled,
+    clearForm: clearForm,
+    disableForm: disableForm
   };
 
 })();
