@@ -95,7 +95,7 @@
     startCoords = {
       x: evt.clientX,
       y: evt.clientY
-    }
+    };
   };
 
   mapPinMain.addEventListener('mousedown', onMapPinMainMouseDown);
