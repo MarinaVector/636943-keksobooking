@@ -110,7 +110,7 @@
   };
 
   var makePageInactive = function () {
-    map.classList.add('map--faded'); // добавляем скрывающий класс
+    map.classList.add('map--faded'); // скрывающий класс
     mapPinMain.addEventListener('mouseup', mainPinMouseupHandler);
     window.card.closeClickHandler(); // закрываем карточку
     removeAllPins(); //  удаляем все пины
