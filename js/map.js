@@ -29,7 +29,7 @@
   mapPinMain.addEventListener('mouseup', mainPinMouseupHandler);
 
   var renderPage = function (point) {
-    // рисует pin
+    // рисование pin
     var fragmentPin = document.createDocumentFragment();
     if (points.length < maxPinsCount) {
       maxPinsCount = points.length;
