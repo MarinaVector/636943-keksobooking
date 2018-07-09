@@ -13,7 +13,7 @@
 
   var mainPinMouseupHandler = function () {
     map.classList.remove('map--faded'); // убираем неактивный фон
-    // отрисовка пинов по данным, полученным с сервера
+    // отрисовка пинов по данным с сервера
     window.backend.download(onLoadData, window.backend.nErrorMessage);
     // отрисовываем пины
     window.form.initForm();
