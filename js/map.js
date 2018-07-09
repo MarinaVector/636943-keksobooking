@@ -2,6 +2,8 @@
 (function () {
   var PIN_WIDTH = 62;
   var PIN_HEIGHT = 84;
+  var START_MAIN_PIN_LEFT = 570;
+  var START_MAIN_PIN_TOP = 375;
   var maxPinsCount = 5;
   var map = document.querySelector('.map');
   var mapFiltersContainer = document.querySelector('.map__filters-container');
@@ -37,16 +39,22 @@
     for (var i = 0; i < maxPinsCount; i++) {
       fragmentPin.appendChild(window.pin.renderPin(point[i]));
     }
-
     pins.appendChild(fragmentPin);
     // рисование карточки
     var fragmentCard = document.createDocumentFragment();
     fragmentCard.appendChild(window.card.renderCard(point[0]));
     map.insertBefore(fragmentCard, mapFiltersContainer);
     adCard = map.querySelector('article');
+    if (adCard === null) {
+      var fragmentCard = document.createDocumentFragment();
+      fragmentCard.appendChild(window.card.renderCard(point[0]));
+      map.insertBefore(fragmentCard, mapFiltersContainer);
+      adCard = map.querySelector('article');
+    }
     adCard.classList.add('hidden');
     var closeButton = adCard.querySelector('.popup__close');
     closeButton.addEventListener('click', window.card.closeClickHandler);
+
   };
 
   // перетаскивание
@@ -91,4 +99,28 @@
     document.addEventListener('mouseup', onMouseUp);
   };
   mapPinMain.addEventListener('mousedown', onMapPinMainMouseDown);
+  var removeAllPins = function () {
+    var allPins = document.querySelectorAll('.map__pin'); // нашли все пины
+
+    for (var j = 0; j < allPins.length; j++) {
+      if (!allPins[j].classList.contains('map__pin--main')) {
+        pins.removeChild(allPins[j]);
+      }
+    }
+  };
+
+  var makePageInactive = function () {
+    map.classList.add('map--faded'); // добавляем скрывающий класс
+    mapPinMain.addEventListener('mouseup', mainPinMouseupHandler);
+    window.card.closeClickHandler(); // закрываем карточку
+    removeAllPins(); //  удаляем все пины
+    mapPinMain.style.left = START_MAIN_PIN_LEFT + 'px';
+    mapPinMain.style.top = START_MAIN_PIN_TOP + 'px'; // возврат главного пина в первоначальное положение
+    window.form.clearForm();
+    window.form.disableForm();
+    window.form.setAddressValue(parseInt(mapPinMain.style.left, 10) + PIN_WIDTH / 2, parseInt(mapPinMain.style.top, 10) + PIN_HEIGHT); // установка адреса
+  };
+  window.map = {
+    makePageInactive: makePageInactive
+  };
 })();
