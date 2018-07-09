@@ -46,7 +46,6 @@
     map.insertBefore(fragmentCard, mapFiltersContainer);
     adCard = map.querySelector('article');
     if (adCard === null) {
-      var fragmentCard = document.createDocumentFragment();
       fragmentCard.appendChild(window.card.renderCard(point[0]));
       map.insertBefore(fragmentCard, mapFiltersContainer);
       adCard = map.querySelector('article');
