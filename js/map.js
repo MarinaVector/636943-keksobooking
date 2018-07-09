@@ -39,7 +39,7 @@
     }
 
     pins.appendChild(fragmentPin);
-    // рисует карточку
+    // рисование карточки
     var fragmentCard = document.createDocumentFragment();
     fragmentCard.appendChild(window.card.renderCard(point[0]));
     map.insertBefore(fragmentCard, mapFiltersContainer);
