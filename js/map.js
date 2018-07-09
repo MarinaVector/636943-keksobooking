@@ -55,7 +55,7 @@
     closeButton.addEventListener('click', window.card.closeClickHandler);
   };
 
-  // перетаскивание
+  // перетаскивания
   var startCoords = {
     x: 0,
     y: 0
